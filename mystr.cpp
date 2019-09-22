@@ -107,6 +107,74 @@ const char*	MyStr::resizeX(char **pstr,const char *istr) {
 	} else if(ii>0) 	strcpy(str,istr);
 	return *pstr;
 }
+const char*	MyStr::resize(const char *istr) { 
+	resizeX(&str,istr); len=strlen(str); return str;
+}
+const char*	MyStr::resizetmp(const char *istr) {
+	return resizeX(&tmp,istr);
+}
+void MyStr::release(void) { 
+	len=0; 
+	if(str!=Emptystr) delete [] str; 
+	str=Emptystr;
+}
+void MyStr::releasetmp(void) { 
+	if(tmp!=Emptystr) delete [] tmp;
+	tmp=Emptystr;
+}
+
+MyStr::MyStr() { 
+	tmp=Emptystr; str=Emptystr; len=0;
+}
+MyStr::MyStr(const char *s) {
+	tmp=Emptystr;
+	str=Emptystr; resize(s); len=strlen(str);
+}
+MyStr::MyStr(MyStr &S) {
+	tmp=Emptystr;
+	str=Emptystr; resize(S.str); len=strlen(str); 
+}
+MyStr::~MyStr() {
+	releasetmp(); release();
+}
+
+MyStr::operator int() 				{ return len; }
+MyStr::operator char*() 			{ return str; }
+MyStr::operator const char*() 		{ return str; }
+
+MyStr&	MyStr::operator=(const char *s)	{ resize(s); return *this; }
+MyStr&	MyStr::operator=(const char c)	{ char s[2]; s[0]=c; s[1]='\0'; resize(s); return *this; }
+MyStr&	MyStr::operator=(MyStr &S)		{ resize(S.str); return *this; }
+
+MyStr&	MyStr::operator+=(const char c)	{ char s[2]; s[0]=c; s[1]='\0'; return operator+=(s); }
+MyStr&	MyStr::operator+=(MyStr &S)		{ return operator+=(S.str); }
+
+bool	MyStr::operator==(const char c)	{ char s[2]; s[0]=c; s[1]='\0'; return operator==(s); }
+bool	MyStr::operator==(MyStr &S)		{ return operator==(S.str); }
+ 
+bool	MyStr::operator!=(const char *s)	{ if(operator==(s)) return false; else return true; }
+bool	MyStr::operator!=(const char c) 	{ char s[2]; s[0]=c; s[1]='\0'; return operator!=(s); }
+bool	MyStr::operator!=(MyStr &S) 		{ return operator!=(S.str); }
+
+const char*	MyStr::operator+(const char c)	{ char s[2]; s[0]=c; s[1]='\0'; return operator+(s); }
+const char*	MyStr::operator+(MyStr &S)		{ return operator+(S.str); }
+
+int		MyStr::InStr(const char *w) 							{ return WordIdxInStr(-1,-1,str,w); }
+int		MyStr::InStr(const int si,const char *w) 				{ return WordIdxInStr(si,-1,str,w); }
+int		MyStr::InStr(const int si,const int ei,const char *w) 	{ return WordIdxInStr(si,ei,str,w); }
+
+int		MyStr::InStr(const char c) 								{ return WordIdxInStr(-1,-1,str,c); }
+int		MyStr::InStr(const int si,const char c) 				{ return WordIdxInStr(si,-1,str,c); }
+int		MyStr::InStr(const int si,const int ei,const char c) 	{ return WordIdxInStr(si,ei,str,c); }
+
+int		MyStr::InStrRev(const char *w) 								{ return WordIdxInStrRev(-1,-1,str,w); }
+int		MyStr::InStrRev(const int si,const char *w) 				{ return WordIdxInStrRev(si,-1,str,w); }
+int		MyStr::InStrRev(const int si,const int ei,const char *w) 	{ return WordIdxInStrRev(si,ei,str,w); }
+
+int		MyStr::InStrRev(const char c) 								{ return WordIdxInStrRev(-1,-1,str,c); }
+int		MyStr::InStrRev(const int si,const char c) 					{ return WordIdxInStrRev(si,-1,str,c); }
+int		MyStr::InStrRev(const int si,const int ei,const char c) 	{ return WordIdxInStrRev(si,ei,str,c); }
+
 MyStr& MyStr::operator+=(const char *s) {
 	if(s!=NULL) {
 		int ls=0;
@@ -170,6 +238,11 @@ const char* MyStr::GetStrRangeBtwKey(const char *k1,const char *k2) {
 	}
 	return resizetmp(NULL);
 }
+const char* MyStr::GetStrRangeBtwKey(const char c1,const char c2) {
+	char s1[2]; s1[0]=c1; s1[1]='\0';
+	char s2[2]; s2[0]=c2; s2[1]='\0';
+	return GetStrRangeBtwKey(s1,s2);
+}
 const char* MyStr::GetStrRangeByKey(const char *k1,const char *k2) {
 	int lk1=0;
 	if(k1!=NULL) lk1=strlen(k1);
@@ -194,6 +267,12 @@ const char* MyStr::GetStrRangeByKey(const char *k1,const char *k2) {
 	}
 	return resizetmp(NULL);
 }
+const char* MyStr::GetStrRangeByKey(const char c1,const char c2) {
+	char s1[2]; s1[0]=c1; s1[1]='\0';
+	char s2[2]; s2[0]=c2; s2[1]='\0';
+	return GetStrRangeByKey(s1,s2);
+}
+
 const char* MyStr::GetStrRangeByKeyExSymBlk(const char *k1,const char *k2,const char *SymChrLst) {
 	int lk1=0;
 	if(k1!=NULL) lk1=strlen(k1);
@@ -234,6 +313,7 @@ const char* MyStr::GetStrRangeByKeyExSymBlk(const char *k1,const char *k2,const 
 	}	
 	return resizetmp(NULL);
 }
+
 const char* MyStr::GetStrRangeBtwKeyExSymBlk(const char *k1,const char *k2,const char *SymChrLst) {
 	int lk1=0;
 	if(k1!=NULL) lk1=strlen(k1);
