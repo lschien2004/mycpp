@@ -390,3 +390,50 @@ const char* MyStr::GetStrRangeBtwIdx(const char si,const char ei) {
 	}
 	return resizetmp(NULL);
 }
+const char* MyStr::GetStrRemoveWord(const int si,const int ei,const char *wd) {
+	int sp=si;
+	if(si<0) sp=0;
+	int ep=ei;
+	if(ep<0) ep=len-1;
+	int lwd=0;
+	if(wd!=NULL) wd=strlen(wd);
+	if(len<1 || sp>ep || ep>=len) return resizetmp(NULL);
+	if(lwd<1) return resizetmp(str);
+	MyStr T;
+	int p=WordIdxInStr(sp,ep,str,wd);
+	while(p>-1) {
+		T+=GetStrRangeByIdx(sp,p-1);
+		sp=p+lwd;
+		p=WordIdxInStr(sp,ep,str,wd);
+	}
+	if(sp<=ep) T+=GetStrRangeByIdx(sp,ep);
+	return resizetmp((const char*)T);
+}
+const char* MyStr::GetStrRemoveWord(const int si,const char *wd) { return GetStrRemoveWord(si,-1,wd); }
+const char* MyStr::GetStrRemoveWord(const char *wd) { return GetStrRemoveWord(-1,-1,wd); }
+
+const char* MyStr::GetStrRemoveWordExSymBlk(const int si,const int ei,const char *wd,const char *SymChrLst){
+	int sp=si;
+	if(si<0) sp=0;
+	int ep=ei;
+	if(ei<0) ep=len-1;
+	
+	if(len<1 || sp>ep || ep>=len) return resizetmp(NULL);
+	if(lwd<1) return resizetmp(str);
+
+	int lsym=0;
+	if(SymChrLst!=NULL) lsym=strlen(SymChrLst);
+	if(lsym<1) return GetStrRemoveWord(si,ei,wd);
+	
+	MyStr T;
+	int k=sp;
+	PO2 pp=SymBlkIdxInStr(k,ep,str,SymChrLst);
+	while(pp.p1>-1) {
+		int p=WordIdxInStr(k,pp.p1-1,wd);
+		if(p>0) {T+=GetStrRangeByIdx(k,p-1); k=p+lwd;}
+		else	{T+=GetStrRangeByIdx(k,pp.p2); k=pp.p2+1;}
+		pp=SymBlkIdxInStr(k,ep,str,SymChrLst);
+	}
+	if(k<=ep) T+=GetStrRangeByIdx(k,ep);
+	return resizetmp((const char*)T);
+}	

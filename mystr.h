@@ -98,6 +98,13 @@ virtual 	const char* GetStrRangeBtwKey(const char c1,const char c2);
 
 virtual 	const char* GetStrRangeByIdx(const char si,const char ei);
 virtual 	const char* GetStrRangeBtwIdx(const char si,const char ei);
+
+virtual		const char* GetStrRemoveWord(const char *wd);
+virtual		const char* GetStrRemoveWord(const int si,const char *wd);
+virtual		const char* GetStrRemoveWord(const int si,const int ei,const char *wd);
+
+virtual		const char* GetStrRemoveWordExSymBlk(const int si,const int ei,const char *wd,const char *SymChrLst);
+
 };
 
 #endif
