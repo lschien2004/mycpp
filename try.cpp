@@ -40,7 +40,8 @@ int main(int ac,char** av)
 	printf("\n'%s'\n",S+'c');
 	printf("\n'%s'\n",S+T);
 */
-	MyStr S("abcdefabcdef");
+	MyStr S;
+	S="abc?defabc?defa";
   	printf("\nS=[%d] '%s'",(int)S,(char*)S);
 	MyStr K1,K2;
     printf("\nS.GetStrRangeByKey('%s','%s')='%s'",(char*)K1,(char*)K2,S.GetStrRangeByKey((const char*)K1,(const char*)K2));
@@ -52,7 +53,9 @@ int main(int ac,char** av)
     printf("\nS.GetStrRangeByKey('%s','%s')='%s'",(char*)K1,(char*)K2,S.GetStrRangeByKey((const char*)K1,(const char*)K2));
 	K1="a"; K2="f";
     printf("\nS.GetStrRangeByKey('%s','%s')='%s'",(char*)K1,(char*)K2,S.GetStrRangeByKey((const char*)K1,(const char*)K2));
-	K1="abcd"; K2="cdef";
+	K1="f"; K2="a";
+    printf("\nS.GetStrRangeByKey('%s','%s')='%s'",(char*)K1,(char*)K2,S.GetStrRangeByKey((const char*)K1,(const char*)K2));
+	K1="?"; K2="?";
     printf("\nS.GetStrRangeByKey('%s','%s')='%s'",(char*)K1,(char*)K2,S.GetStrRangeByKey((const char*)K1,(const char*)K2));
 
 
@@ -104,7 +107,7 @@ for(n=0;n<10;n++) {
     printf("\nS.GetStrRangeBtwIdx('%d','%d')='%s'",sp,ep,S.GetStrRangeBtwIdx(sp,ep));
 
     MyStr SYM("?\"");
-	S="abc?defabc?defa";
+	S="abc?de,fa,bc?,defa,\"asd\",end";
   	printf("\nS=[%d] '%s'",(int)S,(char*)S);
 	K1=""; K2="";
     printf("\nS.GetStrRangeByKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeByKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
@@ -119,6 +122,8 @@ for(n=0;n<10;n++) {
 	K1="a"; K2="e";
     printf("\nS.GetStrRangeByKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeByKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
 	K1="a"; K2="a";
+    printf("\nS.GetStrRangeByKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeByKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
+	K1=","; K2=","; SYM="?\"";
     printf("\nS.GetStrRangeByKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeByKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
 
 

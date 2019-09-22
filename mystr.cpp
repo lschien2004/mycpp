@@ -171,8 +171,8 @@ const char* MyStr::GetStrRangeBtwKey(const char *k1,const char *k2) {
 	return resizetmp(NULL);
 }
 const char* MyStr::GetStrRangeByKey(const char *k1,const char *k2) {
-	return GetStrRangeByKeyExSymBlk(k1,k2,NULL);
-/*	int lk1=0;
+//	return GetStrRangeByKeyExSymBlk(k1,k2,NULL);
+	int lk1=0;
 	if(k1!=NULL) lk1=strlen(k1);
 	int lk2=0;
 	if(k2!=NULL) lk2=strlen(k2);
@@ -194,7 +194,6 @@ const char* MyStr::GetStrRangeByKey(const char *k1,const char *k2) {
 		return tmp;
 	}
 	return resizetmp(NULL);
-*/
 }
 const char* MyStr::GetStrRangeByKeyExSymBlk(const char *k1,const char *k2,const char *SymChrLst) {
 	int lk1=0;
@@ -204,39 +203,27 @@ const char* MyStr::GetStrRangeByKeyExSymBlk(const char *k1,const char *k2,const 
 	if( (lk1<1 && lk2<1) || len<1 ) return resizetmp(str);
 	int lsym=0;
 	if(SymChrLst!=NULL) lsym=strlen(SymChrLst);
-		
-	int k=0;
-	int p=-1;
-	int q=-1;
+	if(lsym<1) return GetStrRangeByKey(k1,k2);
 	
-	if(lsym>0) {
-		if(lk1<1) p=k;
-		if(lk2<1) q=len;
-		PO2 pp=SymBlkIdxInStr(k,-1,str,SymChrLst);
-		while(pp.p1>-1) {
-			if(lk1>0 && p<0) {
-				p=WordIdxInStr(k,pp.p1-1,str,k1);
-				if(p>-1) k=p+lk1;
-			}
-			if(lk2>0) q=WordIdxInStr(k,pp.p1-1,str,k2);
-			if(p>-1 && q>-1) break;
-			k=pp.p2+1;
-			pp=SymBlkIdxInStr(k,-1,str,SymChrLst);
-		}
+	int k=0 ,p=-1 ,q=-1;
+	if(lk1<1) p=k;
+	if(lk2<1) q=len;
+	PO2 pp=SymBlkIdxInStr(k,-1,str,SymChrLst);
+	while(pp.p1>-1) {
 		if(lk1>0 && p<0) {
-			p=WordIdxInStr(k,-1,str,k1);
+			p=WordIdxInStr(k,pp.p1-1,str,k1);
 			if(p>-1) k=p+lk1;
 		}
-		if(lk2>0 && q<0 ) q=WordIdxInStr(k,-1,str,k2);
-	} else {
-		if(lk1<1) p=k;
-		else if(p<0) {
-			p=WordIdxInStr(k,-1,str,k1);
-			if(p>-1) k=p+lk1;	
-		}
-		if(lk2<1) q=len;
-		else if(q<0) q=WordIdxInStr(k,-1,str,k2);
+		if(lk2>0) q=WordIdxInStr(k,pp.p1-1,str,k2);
+		if(p>-1 && q>-1) break;
+		k=pp.p2+1;
+		pp=SymBlkIdxInStr(k,-1,str,SymChrLst);
 	}
+	if(lk1>0 && p<0) {
+		p=WordIdxInStr(k,-1,str,k1);
+		if(p>-1) k=p+lk1;
+	}
+	if(lk2>0 && q<0 ) q=WordIdxInStr(k,-1,str,k2);
 	if(p>-1 && q>-1) {
 		lk1=q+lk2-p;
 		char *t=new char[lk1+1];
