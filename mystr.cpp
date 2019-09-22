@@ -396,7 +396,7 @@ const char* MyStr::GetStrRemoveWord(const int si,const int ei,const char *wd) {
 	int ep=ei;
 	if(ep<0) ep=len-1;
 	int lwd=0;
-	if(wd!=NULL) wd=strlen(wd);
+	if(wd!=NULL) lwd=strlen(wd);
 	if(len<1 || sp>ep || ep>=len) return resizetmp(NULL);
 	if(lwd<1) return resizetmp(str);
 	MyStr T;
@@ -417,7 +417,8 @@ const char* MyStr::GetStrRemoveWordExSymBlk(const int si,const int ei,const char
 	if(si<0) sp=0;
 	int ep=ei;
 	if(ei<0) ep=len-1;
-	
+	int lwd=0;
+	if(wd!=NULL) lwd=strlen(wd);
 	if(len<1 || sp>ep || ep>=len) return resizetmp(NULL);
 	if(lwd<1) return resizetmp(str);
 
@@ -429,7 +430,7 @@ const char* MyStr::GetStrRemoveWordExSymBlk(const int si,const int ei,const char
 	int k=sp;
 	PO2 pp=SymBlkIdxInStr(k,ep,str,SymChrLst);
 	while(pp.p1>-1) {
-		int p=WordIdxInStr(k,pp.p1-1,wd);
+		int p=WordIdxInStr(k,pp.p1-1,str,wd);
 		if(p>0) {T+=GetStrRangeByIdx(k,p-1); k=p+lwd;}
 		else	{T+=GetStrRangeByIdx(k,pp.p2); k=pp.p2+1;}
 		pp=SymBlkIdxInStr(k,ep,str,SymChrLst);
