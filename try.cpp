@@ -126,6 +126,24 @@ for(n=0;n<10;n++) {
 	K1=","; K2=","; SYM="?\"";
     printf("\nS.GetStrRangeByKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeByKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
 
+	SYM="?\"";
+  	printf("\n\nS=[%d] '%s'",(int)S,(char*)S);
+	K1=""; K2="";
+    printf("\nS.GetStrRangeBtwKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeBtwKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
+	K1="c";
+    printf("\nS.GetStrRangeBtwKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeBtwKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
+	K2="d";
+    printf("\nS.GetStrRangeBtwKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeBtwKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
+	K1="";
+    printf("\nS.GetStrRangeBtwKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeBtwKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
+	K1="a"; K2="f";
+    printf("\nS.GetStrRangeBtwKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeBtwKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
+	K1="a"; K2="e";
+    printf("\nS.GetStrRangeBtwKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeBtwKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
+	K1="a"; K2="a";
+    printf("\nS.GetStrRangeBtwKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeBtwKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
+	K1=","; K2=","; SYM="?\"";
+    printf("\nS.GetStrRangeBtwKeyExSymBlk('%s','%s','%s')='%s'",(char*)K1,(char*)K2,(char*)SYM,S.GetStrRangeBtwKeyExSymBlk((char*)K1,(char*)K2,(char*)SYM));
 
 
     exit(0);

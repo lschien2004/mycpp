@@ -89,6 +89,7 @@ public:
  inline	virtual 	int		InStrRev(const int si,const int ei,const char c) 	{ return WordIdxInStrRev(si,ei,str,c); }
 
 					const char* GetStrRangeByKeyExSymBlk(const char *k1,const char *k2,const char *SymChrLst);
+					const char* GetStrRangeBtwKeyExSymBlk(const char *k1,const char *k2,const char *SymChrLst);
 					
 					const char* GetStrRangeByKey(const char *k1,const char *k2);
 inline				const char* GetStrRangeByKey(const char c1,const char c2) { char s1[2]; s1[0]=c1; s1[1]='\0'; char s2[2]; s2[0]=c2; s2[1]='\0'; return GetStrRangeByKey(s1,s2); }
